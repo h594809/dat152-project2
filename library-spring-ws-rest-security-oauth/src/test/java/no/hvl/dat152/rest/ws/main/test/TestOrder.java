@@ -24,6 +24,7 @@ import no.hvl.dat152.rest.ws.service.OrderService;
 class TestOrder {
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	@Autowired
 	private OrderService orderService;
 	
@@ -150,6 +151,19 @@ class TestOrder {
 		return json;
 	}
 =======
+=======
+    @Autowired
+    private OrderService orderService;
+
+    private String API_ROOT = "http://localhost:8090/elibrary/api/v1";
+
+    @Value("${admin.token.test}")
+    private String ADMIN_TOKEN;
+
+    @Value("${user.token.test}")
+    private String USER_TOKEN;
+
+>>>>>>> Stashed changes
     @DisplayName("JUnit test for filter by Expiry @GetMapping(/orders) endpoint")
     @Test
     public void getAllOrders_thenOK() {
@@ -160,6 +174,9 @@ class TestOrder {
                 .param("size", 4)
                 .header("Authorization", "Bearer "+ ADMIN_TOKEN)
                 .get(API_ROOT+"/orders");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());

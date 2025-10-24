@@ -2,11 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <bytecodeTargetLevel>
       <module name="library-spring-ws-rest" target="17" />
       <module name="library-spring-ws-rest-security-oauth" target="17" />
     </bytecodeTargetLevel>
 =======
+=======
+>>>>>>> Stashed changes
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -22,6 +25,9 @@
       <module name="library-spring-ws-rest" options="-parameters" />
       <module name="library-spring-ws-rest-security-oauth" options="-parameters" />
     </option>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   </component>
 </project>
