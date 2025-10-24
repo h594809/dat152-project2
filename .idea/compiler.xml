@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+<<<<<<< Updated upstream
     <bytecodeTargetLevel>
       <module name="library-spring-ws-rest" target="17" />
       <module name="library-spring-ws-rest-security-oauth" target="17" />
     </bytecodeTargetLevel>
+=======
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="library-spring-ws-rest-security-oauth" />
+        <module name="library-spring-ws-rest" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="library-spring-ws-rest" options="-parameters" />
+      <module name="library-spring-ws-rest-security-oauth" options="-parameters" />
+    </option>
+>>>>>>> Stashed changes
   </component>
 </project>

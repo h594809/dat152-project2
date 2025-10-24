@@ -1,6 +1,3 @@
-/**
- * 
- */
 package no.hvl.dat152.rest.ws.repository;
 
 import java.time.LocalDate;
@@ -16,28 +13,27 @@ import org.springframework.data.repository.query.Param;
 
 import no.hvl.dat152.rest.ws.model.Order;
 
-/**
- * 
- */
 public interface OrderRepository extends CrudRepository<Order, Long>, PagingAndSortingRepository<Order, Long> {
 
-	
-	@Query(value = "SELECT user_id FROM orders WHERE id = :id", nativeQuery=true)
-	Long findUserID(@Param("id") Long id);
-	
-	@Query(value = "SELECT id, isbn, expiry FROM orders WHERE expiry <= :expiry limit :limit offset :offset ", nativeQuery=true)
-	List<Order> findOrderByExpiry(
-			@Param("expiry") LocalDate expiry,
-			@Param("limit") int limit,
-			@Param("offset") int offset);
-	
-	List<Order> findAll(Sort sort);
-	
-	Page<Order> findAll(Pageable pageable);
-	
-	Page<Order> findByExpiryBefore(LocalDate expiry, Pageable pageable);
-	
-	@Query(value = "SELECT user_email FROM orders WHERE id = :id", nativeQuery=true)
-	String findEmailByOrderId(Long id);
+    @Query(value = "SELECT user_id FROM orders WHERE id = :id", nativeQuery = true)
+    Long findUserID(@Param("id") Long id);
 
+    @Query(value = "SELECT id, isbn, expiry FROM orders WHERE expiry <= :expiry LIMIT :limit OFFSET :offset", nativeQuery = true)
+    List<Order> findOrderByExpiry(
+            @Param("expiry") LocalDate expiry,
+            @Param("limit") int limit,
+            @Param("offset") int offset);
+
+    List<Order> findAll(Sort sort);
+
+    Page<Order> findAll(Pageable pageable);
+
+
+    Page<Order> findByExpiryBefore(LocalDate expiry, Pageable pageable);
+
+
+    List<Order> findByExpiryBefore(LocalDate expiryDate);
+
+    @Query(value = "SELECT user_email FROM orders WHERE id = :id", nativeQuery = true)
+    String findEmailByOrderId(@Param("id") Long id);
 }

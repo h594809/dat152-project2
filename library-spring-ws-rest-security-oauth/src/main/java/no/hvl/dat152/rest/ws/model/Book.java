@@ -5,6 +5,7 @@ package no.hvl.dat152.rest.ws.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +22,7 @@ import jakarta.persistence.JoinColumn;
  * @author tdoy
  */
 @Entity
-public class Book {
+public class Book extends RepresentationModel<Book> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

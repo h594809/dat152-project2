@@ -6,20 +6,8 @@ package no.hvl.dat152.rest.ws.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 
 /**
@@ -50,8 +38,13 @@ public class User extends RepresentationModel<User> {
 	@JoinColumn(name = "user_id", referencedColumnName = "userid")
 	@JoinColumn(name = "user_email", referencedColumnName = "email")
 	private Set<Order> orders = new HashSet<>();
-	
-	@ManyToMany
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+    @ManyToMany
 	@JoinTable(
 			name = "user_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
@@ -66,8 +59,9 @@ public class User extends RepresentationModel<User> {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
-	
-	/**
+
+
+    /**
 	 * @return the userid
 	 */
 	public Long getUserid() {
@@ -166,6 +160,17 @@ public class User extends RepresentationModel<User> {
 	public void removeRole(Role role) {
 		this.roles.remove(role);
 	}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+
 
 //	/**
 //	 * @param password the password to set

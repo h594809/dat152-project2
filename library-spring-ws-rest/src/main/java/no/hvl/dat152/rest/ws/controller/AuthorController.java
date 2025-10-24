@@ -29,16 +29,78 @@ import no.hvl.dat152.rest.ws.service.AuthorService;
 @RequestMapping("/elibrary/api/v1")
 public class AuthorController {
 
+	@Autowired
+	private AuthorService authorService;
 	
-	// TODO - getAllAuthor (@Mappings, URI, and method)
+	/**
+	 * Gets all authors with their published books
+	 * @return a list of all authors
+	 */
+	@GetMapping("/authors")
+	public ResponseEntity<Object> getAllAuthors() {
+		List<Author> authors = authorService.findAll();
+		
+		if (authors.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		
+		return new ResponseEntity<>(authors, HttpStatus.OK);
+	}
 	
-	// TODO - getAuthor (@Mappings, URI, and method)
+	/**
+	 * Gets an author by ID with their published books
+	 * @param id the ID of the author
+	 * @return the author if found
+	 * @throws AuthorNotFoundException if author not found
+	 */
+	@GetMapping("/authors/{id}")
+	public ResponseEntity<Author> getAuthor(@PathVariable int id) throws AuthorNotFoundException {
+		Author author = authorService.findById(id);
+		return new ResponseEntity<>(author, HttpStatus.OK);
+	}
 	
-	// TODO - getBooksByAuthorId (@Mappings, URI, and method)
+	/**
+	 * Gets all books by a specific author
+	 * @param id the ID of the author
+	 * @return the list of books by the author
+	 * @throws AuthorNotFoundException if author not found
+	 */
+	@GetMapping("/authors/{id}/books")
+	public ResponseEntity<Object> getBooksByAuthorId(@PathVariable int id) throws AuthorNotFoundException {
+		Set<Book> books = authorService.findBooksByAuthorId(id);
+		
+		if (books.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		
+		return new ResponseEntity<>(books, HttpStatus.OK);
+	}
 	
-	// TODO - createAuthor (@Mappings, URI, and method)
+	/**
+	 * Creates a new author
+	 * @param author the author to create
+	 * @return the created author
+	 */
+	@PostMapping("/authors")
+	public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
+		Author newAuthor = authorService.saveAuthor(author);
+		return new ResponseEntity<>(newAuthor, HttpStatus.CREATED);
+	}
 	
-	// TODO - updateAuthor (@Mappings, URI, and method)
-
-
+	/**
+	 * Updates an existing author
+	 * @param id the ID of the author to update
+	 * @param author the updated author data
+	 * @return the updated author
+	 * @throws AuthorNotFoundException if author not found
+	 */
+	@PutMapping("/authors/{id}")
+	public ResponseEntity<Author> updateAuthor(@PathVariable int id, @RequestBody Author author) throws AuthorNotFoundException {
+		// Sjekk at forfatteren finnes
+		authorService.findById(id);
+		
+		// Sett riktig ID
+		author.setAuthorId(id);
+		
+		Author updatedAuthor = authorService.updateAuthor(author);
+		return new ResponseEntity<>(updatedAuthor, HttpStatus.OK);
+	}
 }
